@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"io/ioutil"
 	"net"
+	"strings"
 	"testing"
 	"time"
 )
@@ -33,6 +34,10 @@ func Test_Server(t *testing.T) {
 	bytes, err := ioutil.ReadAll(conn)
 	if err != nil {
 		t.Fatalf("can't read from server %v", err)
+	}
+	response := string(bytes)
+	if !strings.Contains(response, "200 OK") {
+		t.Fatalf("non-success response: %s", response)
 	}
 
 }
